@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آپلود فایل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #fileDisplayArea {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>اپلود فایل</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">آپلود فایل</button>
+    <button onclick="deleteFile()">حذف فایل</button>
+
+    <div id="fileDisplayArea">
+        <h2>فایل آپلود شده:</h2>
+        <p id="fileName"></p>
+        <a id="fileDownloadLink" href="" target="_blank">دانلود فایل</a>
+    </div>
+
+    <script>
+        // نمایش فایل آپلود شده
+        function displayFile(file) {
+            const fileName = file.name;
+            const fileLink = URL.createObjectURL(file);
+            document.getElementById('fileName').textContent = fileName;
+            document.getElementById('fileDownloadLink').href = fileLink;
+            localStorage.setItem('uploadedFile', fileLink); // ذخیره در LocalStorage
+            localStorage.setItem('fileName', fileName); // ذخیره نام فایل
+        }
+
+        // آپلود فایل
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                displayFile(file);
+            } else {
+                alert('لطفاً یک فایل انتخاب کنید');
+            }
+        }
+
+        // حذف فایل
+        function deleteFile() {
+            localStorage.removeItem('uploadedFile');
+            localStorage.removeItem('fileName');
+            document.getElementById('fileName').textContent = '';
+            document.getElementById('fileDownloadLink').href = '';
+            alert('فایل حذف شد');
+        }
+
+        // بارگذاری فایل از LocalStorage بعد از رفرش صفحه
+        window.onload = function() {
+            const savedFileLink = localStorage.getItem('uploadedFile');
+            const savedFileName = localStorage.getItem('fileName');
+            if (savedFileLink && savedFileName) {
+                document.getElementById('fileName').textContent = savedFileName;
+                document.getElementById('fileDownloadLink').href = savedFileLink;
+            }
+        }
+    </script>
+</body>
+</html>
