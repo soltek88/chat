@@ -1,78 +1,80 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آپلود فایل</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        #fileDisplayArea {
-            margin-top: 20px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Login/Signup Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <h1>اپلود فایل</h1>
-    <input type="file" id="fileInput" />
-    <button onclick="uploadFile()">آپلود فایل</button>
-    <button onclick="deleteFile()">حذف فایل</button>
+    <div class="container">
+        <div class="form-box login">
+            <form action="#">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt' ></i>
+                </div>
+                <div class="forgot-link">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p>or login with social platforms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-google' ></i></a>
+                    <a href="#"><i class='bx bxl-facebook' ></i></a>
+                    <a href="#"><i class='bx bxl-github' ></i></a>
+                    <a href="#"><i class='bx bxl-linkedin' ></i></a>
+                </div>
+            </form>
+        </div>
 
-    <div id="fileDisplayArea">
-        <h2>فایل آپلود شده:</h2>
-        <p id="fileName"></p>
-        <a id="fileDownloadLink" href="" target="_blank">دانلود فایل</a>
+        <div class="form-box register">
+            <form action="#">
+                <h1>Registration</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="Email" required>
+                    <i class='bx bxs-envelope' ></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt' ></i>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <p>or register with social platforms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-google' ></i></a>
+                    <a href="#"><i class='bx bxl-facebook' ></i></a>
+                    <a href="#"><i class='bx bxl-github' ></i></a>
+                    <a href="#"><i class='bx bxl-linkedin' ></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Sajjad Development</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
+
+            <div class="toggle-panel toggle-right">
+                <h1>Sajjad Coding</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // نمایش فایل آپلود شده
-        function displayFile(file) {
-            const fileName = file.name;
-            const fileLink = URL.createObjectURL(file);
-            document.getElementById('fileName').textContent = fileName;
-            document.getElementById('fileDownloadLink').href = fileLink;
-            localStorage.setItem('uploadedFile', fileLink); // ذخیره در LocalStorage
-            localStorage.setItem('fileName', fileName); // ذخیره نام فایل
-        }
-
-        // آپلود فایل
-        function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-
-            if (file) {
-                displayFile(file);
-            } else {
-                alert('لطفاً یک فایل انتخاب کنید');
-            }
-        }
-
-        // حذف فایل
-        function deleteFile() {
-            localStorage.removeItem('uploadedFile');
-            localStorage.removeItem('fileName');
-            document.getElementById('fileName').textContent = '';
-            document.getElementById('fileDownloadLink').href = '';
-            alert('فایل حذف شد');
-        }
-
-        // بارگذاری فایل از LocalStorage بعد از رفرش صفحه
-        window.onload = function() {
-            const savedFileLink = localStorage.getItem('uploadedFile');
-            const savedFileName = localStorage.getItem('fileName');
-            if (savedFileLink && savedFileName) {
-                document.getElementById('fileName').textContent = savedFileName;
-                document.getElementById('fileDownloadLink').href = savedFileLink;
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
